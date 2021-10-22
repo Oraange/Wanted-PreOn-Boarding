@@ -2,7 +2,7 @@ from jwt import exceptions, decode
 
 from django.http import JsonResponse
 
-from my_settings  import SECRET_KEY, ALGORITHM
+from my_settings  import SECRET_KEY
 from users.models import User
 
 def authentication(func):
@@ -12,11 +12,11 @@ def authentication(func):
             if not access_token:
                 return JsonResponse( {'MESSAGE' : 'NO TOKEN'}, status = 403)
 
-            payload = decode(access_token, SECRET_KEY, ALGORITHM)
-            user_id = payload['id']
+            payload = decode(access_token, SECRET_KEY, algorithms = "HS256")
+            user_id = payload["id"]
 
             user = User.objects.get(id = user_id)
-            request.user = user.id
+            request.user = user
 
         except exceptions.DecodeError:
             return JsonResponse( {'MESSAGE' : 'INVALID TOKEN'}, status = 403)
