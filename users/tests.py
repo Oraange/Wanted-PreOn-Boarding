@@ -1,9 +1,8 @@
 import jwt, json, bcrypt
 
-from django.test import TestCase, Client, testcases
+from django.test import TestCase, Client
 
 from users.models  import User
-from boards.models import Board
 from my_settings   import SECRET_KEY
 
 class SignUpViewTest(TestCase):

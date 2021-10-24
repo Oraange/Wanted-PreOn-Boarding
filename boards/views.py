@@ -1,6 +1,7 @@
 import json
+from datetime import datetime
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views import View
 
 from boards.models import Board
@@ -29,9 +30,6 @@ class BoardPostingView(View):
 
         except KeyError:
             return JsonResponse({ "MESSAGE" : "KEY ERROR" }, status = 400)
-        
-        # except ValueError:
-        #     return JsonResponse({ "MESSAGE" : "VALUE ERROR" }, status = 400)
 
 class BoardListView(View):
     def get(self, request):
@@ -43,10 +41,10 @@ class BoardListView(View):
         return JsonResponse({
             "RESULT" : [
                 {
+                    "updated time" : board.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
                     "id"           : board.id,
                     "writer"       : board.writer.nickname,
                     "title"        : board.title,
-                    "content"      : board.content
                 } for board in boards]
         }, status = 200)
 
@@ -57,12 +55,11 @@ class BoardView(View):
             
             return JsonResponse({
                 "RESULT" : {
-                    "created time" : board.created_at,
-                    "updated time" : board.updated_at,
-                    "id"     : board.id,
-                    "writer" : board.writer.nickname,
-                    "title"  : board.title,
-                    "content" : board.content
+                    "content"      : board.content,
+                    "id"           : board.id,
+                    "title"        : board.title,
+                    "updated time" : board.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
+                    "writer"       : board.writer.nickname,
                 }
             }, status = 200)
 
@@ -104,7 +101,7 @@ class BoardView(View):
 
             board.delete()
 
-            return JsonResponse({ "MESSAGE" : "DELETED" }, status = 204)
+            return HttpResponse(status = 204)
 
         except Board.DoesNotExist:
             return JsonResponse({ "MESSAGE" : "BOARD DOES NOT EXIST"}, status = 400)
