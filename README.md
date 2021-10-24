@@ -11,7 +11,7 @@
   - password : 사용자의 패스워드
 
 - view
-  - Sign Up
+  - **Sign Up**
 
     ```python
     if type(nickname) != str or type(password) != str:
@@ -49,7 +49,7 @@
     ```
     입력된 패스워드 암호화 후 회원가입 완료
 
-  - Sign In
+  - **Sign In**
 
     ```py
     if not IsUserExist(nickname):
@@ -63,7 +63,7 @@
     ```
     입력된 password와 DB에 저장된 password를 비교해서 같지 않으면 에러 반환
 
-    **유저가 로그인을 시도했을 때 nickname이 잘못 입력됐는지 password가 잘못 입력됐는지 알 수 없어야 해커에 의해 공격을 최소화할 수 있기 때문에 같은 에러 반환**
+    **유저가 로그인을 시도했을 때 nickname이 잘못 입력됐는지 password가 잘못 입력됐는지 알 수 없어야 해커에 의한 공격을 최소화할 수 있기 때문에 같은 에러 반환**
 
     ```py
     token = jwt.encode({"id" : user.id}, SECRET_KEY, algorithm = "HS256")
@@ -83,7 +83,7 @@
   - content : 게시글 내용
 
 - view
-  - Create
+  - **Create**
 
     ```py
     if title=="" or content=="":
@@ -102,7 +102,7 @@
     ```
     authorization 데코레이터를 이용하여 payload에서 user의 id값을 가져온 후 해당 유저 객체를 ForeignKey로 연결하여 게시글 생성
 
-  - Read
+  - **Read**
     - 전체 조회(pagination 적용)
         ```py
         LIMIT  = int(request.GET.get("limit", 4))
@@ -149,7 +149,7 @@
         ```
         만약 해당 id의 게시글이 없다면 에러 반환
 
-  - Update
+  - **Update**
         ```py
         board = Board.objects.get(id = board_id)
 
@@ -180,7 +180,7 @@
         ```
         수정할 게시글이 존재하지 않는다면 에러 반환
 
-  - Delete
+  - **Delete**
         ```py
         board = Board.objects.get(id = board_id)
 
@@ -208,7 +208,7 @@
 
 ## 🧩 User (사용자)
 
-- /user/sign-up (유저 회원가입)
+- **/user/sign-up (유저 회원가입)**
     file:///Users/songchiheon/Desktop/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-24%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.52.31.png
     - Method : POST
     - parameter : request_body
@@ -217,7 +217,7 @@
     nickname | varchar(32) | null = False / unique = True
     password | varchar(32) | null = False
 
-- /user/sign-in (유저 로그인)
+- **/user/sign-in (유저 로그인)**
     - Method : POST
     - parameter : request_body
     param_name(json key값) | type | option
@@ -227,7 +227,7 @@
 
 ## 🧩 Board (게시글)
 
-- /boards?offset=0&limit=4 (게시글 전체 조회)
+- **/boards?offset=0&limit=4 (게시글 전체 조회)**
     - Method : GET
     - parameter : query_parameter
     param_name | type | option
@@ -235,14 +235,14 @@
     offset | unsigned int | 입력은 옵션
     limit | unsigned int | 입력은 옵션
 
-- /boards/1 (게시글 상세 조회)
+- **/boards/1 (게시글 상세 조회)**
     - Method : GET
     - parameter : path_parameter
     param | type
     ------|-----
     /<int> | int
 
-- /boards/write (게시글 작성)
+- **/boards/write (게시글 작성)**
     - Method : POST
     - parameter : request_body
     param_name(json key값) | type | option
@@ -250,14 +250,14 @@
     title | varchar | blank = False
     content | text | blank = False
 
-- /boards/1 (게시글 수정)
+- **/boards/1 (게시글 수정)**
     - Method : PATCH
     - parameter : path_parameter
     param | type
     ------|-----
     /<int> | int
 
-- /boards/1 (게시글 삭제)
+- **/boards/1 (게시글 삭제)**
     - Method : DELETE
     - parameter : path_parameter
     param | type
