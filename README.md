@@ -206,7 +206,7 @@
 
 ---
 
-# 실행 방법 (Endpoint 호출 방법)
+# 실행 방법 (Endpoint 호출 방법) 및 API 명세
 
 ## 🧩 User (사용자)
 
@@ -219,8 +219,12 @@
     -----|------|---
     nickname | varchar(32) | null = False / unique = True
     password | varchar(32) | null = False
+    
+    - 실행 예제
+    - <img width="1238" alt="스크린샷 2021-10-24 오후 6 17 51" src="https://user-images.githubusercontent.com/42742076/138587925-709f4a1f-7504-4f0e-8af6-a3d02e04dcbf.png">
 
 - **/user/sign-in (유저 로그인)**
+    - <img width="1255" alt="스크린샷 2021-10-24 오후 5 52 31" src="https://user-images.githubusercontent.com/42742076/138587871-951e2dd8-fb50-4018-9e2e-9383589a8fab.png">
     - Method : POST
     - parameter : request_body
 
@@ -228,10 +232,14 @@
     -----|------|---------
     nickname | varchar(32) | null = False / unique = True
     password | varchar(32) | null = False
+    
+    - 실행 예제
+    - <img width="1239" alt="스크린샷 2021-10-24 오후 6 19 47" src="https://user-images.githubusercontent.com/42742076/138587983-80109444-0da5-4c4d-9470-897e525c8a3d.png">
 
 ## 🧩 Board (게시글)
 
 - **/boards?offset=0&limit=4 (게시글 전체 조회)**
+    - <img width="1243" alt="스크린샷 2021-10-24 오후 6 22 11" src="https://user-images.githubusercontent.com/42742076/138588073-902e9ece-ac45-4a13-a20e-9ed91dc5e777.png">
     - Method : GET
     - parameter : query_parameter
 
@@ -239,16 +247,26 @@
     -----------|------|-------
     offset | unsigned int | 입력은 옵션
     limit | unsigned int | 입력은 옵션
+    
+    - 실행 예제
+    - <img width="1240" alt="스크린샷 2021-10-24 오후 6 22 53" src="https://user-images.githubusercontent.com/42742076/138588091-e38d710c-0a25-4853-b491-6be66e7eed6e.png">
+
 
 - **/boards/1 (게시글 상세 조회)**
+    - <img width="1242" alt="스크린샷 2021-10-24 오후 6 23 35" src="https://user-images.githubusercontent.com/42742076/138588113-845282a2-4f7e-4e9c-940e-c7a9ef0a21be.png">
     - Method : GET
     - parameter : path_parameter
 
     param | type
     ------|-----
     /1 | int
+    
+    - 실행 예제
+    - <img width="1239" alt="스크린샷 2021-10-24 오후 6 24 22" src="https://user-images.githubusercontent.com/42742076/138588138-d9b28509-2bc1-4f0d-a1c1-20c9e974bbb4.png">
+
 
 - **/boards/write (게시글 작성)**
+    - <img width="1137" alt="스크린샷 2021-10-24 오후 6 25 39" src="https://user-images.githubusercontent.com/42742076/138588169-2ba5113f-cb56-4eec-9cfb-e64af0815192.png">
     - Method : POST
     - parameter : request_body
 
@@ -256,24 +274,32 @@
     -----------|------|-------
     title | varchar | blank = False
     content | text | blank = False
+    
+    - 실행 예제
+    - <img width="1240" alt="스크린샷 2021-10-24 오후 6 26 10" src="https://user-images.githubusercontent.com/42742076/138588179-e22e946a-a97c-41fd-ad2b-fb5f384a181e.png">
 
 - **/boards/1 (게시글 수정)**
+    - <img width="1067" alt="스크린샷 2021-10-24 오후 6 27 33" src="https://user-images.githubusercontent.com/42742076/138588237-3fa5c0c4-933f-41c8-9cdf-823a9eaf6dcb.png">
     - Method : PATCH
     - parameter : path_parameter
 
     param | type
     ------|-----
     /1 | int
+    
+    - 실행 예제
+    - <img width="1241" alt="스크린샷 2021-10-24 오후 6 28 37" src="https://user-images.githubusercontent.com/42742076/138588255-958d865c-f276-4694-a81d-7ead4d753ca8.png">
 
 - **/boards/1 (게시글 삭제)**
+    - <img width="1238" alt="스크린샷 2021-10-24 오후 6 30 29" src="https://user-images.githubusercontent.com/42742076/138588306-41b4df4c-9640-4d72-a9d1-26356f972343.png">
     - Method : DELETE
     - parameter : path_parameter
 
     param | type
     ------|-----
     /1 | int
+    
+    - 실행 예제
+    - <img width="1241" alt="스크린샷 2021-10-24 오후 6 31 03" src="https://user-images.githubusercontent.com/42742076/138588336-f63592db-9ecf-4fb0-86d6-cc376540ec14.png">
 
----
-
-# API 명세
 
