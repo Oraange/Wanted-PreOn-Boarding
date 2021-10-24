@@ -1,15 +1,23 @@
 import json, bcrypt, jwt
 
+from rest_framework.views import APIView
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 from django.views           import View
-from django.http            import JsonResponse
+from django.http            import JsonResponse, response
 
 from my_settings    import SECRET_KEY
 from users.models   import User
 from core.validator import VerifyNickname, VerifyPassword
 from .repo          import IsUserExist
+from .serializers   import UserSerializer
 
-class SignUpView(View):
-    def post(self, request):
+class SignUpView(APIView):
+
+    serializer_class = UserSerializer
+    @swagger_auto_schema(operation_description="회원가입", request_body = UserSerializer)
+    def post(self, request, format = None):
         try:
             data = json.loads(request.body)
 
@@ -40,7 +48,10 @@ class SignUpView(View):
         except KeyError:
             return JsonResponse({ "MESSAGE" : "KEY ERROR" }, status = 400)
 
-class SignInView(View):
+class SignInView(APIView):
+
+    serializer_class = UserSerializer
+    @swagger_auto_schema(operation_description="로그인", request_body = UserSerializer)
     def post(self, request):
         try:
             data = json.loads(request.body)
