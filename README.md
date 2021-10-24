@@ -242,10 +242,10 @@
 - **/boards/1 (게시글 상세 조회)**
     - Method : GET
     - parameter : path_parameter
-    
+
     param | type
     ------|-----
-    /<int> | int
+    /<\int> | int
 
 - **/boards/write (게시글 작성)**
     - Method : POST
@@ -262,7 +262,7 @@
 
     param | type
     ------|-----
-    /<int> | int
+    /<\int> | int
 
 - **/boards/1 (게시글 삭제)**
     - Method : DELETE
@@ -270,7 +270,7 @@
 
     param | type
     ------|-----
-    /<int> | int
+    /<\int> | int
 
 ---
 
