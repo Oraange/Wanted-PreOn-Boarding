@@ -4,9 +4,7 @@ from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
-
 from django.http  import JsonResponse, HttpResponse
-from django.views import View
 
 from boards.models import Board
 from core.auth     import authentication
@@ -16,6 +14,7 @@ class BoardPostingView(APIView):
     """
     # 게시글 작성
     """
+
     serializer_class = BoardSerializer
     parameter_token = openapi.Parameter (
                                         "Authorization", 
@@ -56,24 +55,31 @@ class BoardListView(APIView):
     """
 
     def get(self, request):
-        LIMIT  = int(request.GET.get("limit", 4))
-        OFFSET = int(request.GET.get("offset", 0)) * LIMIT
+        try:
+            LIMIT  = int(request.GET.get("limit", 4))
+            OFFSET = int(request.GET.get("offset", 0))
+            
+            if LIMIT < 0 or OFFSET < 0:
+                raise ValueError
 
-        boards = Board.objects.select_related('writer').order_by("-updated_at")[OFFSET : OFFSET + LIMIT]
+            boards = Board.objects.select_related('writer').order_by("-updated_at")[OFFSET : OFFSET + LIMIT]
 
-        return JsonResponse({
-            "RESULT" : [
-                {
-                    "updated time" : board.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
-                    "id"           : board.id,
-                    "writer"       : board.writer.nickname,
-                    "title"        : board.title,
-                } for board in boards]
-        }, status = 200)
+            return JsonResponse({
+                "RESULT" : [
+                    {
+                        "updated time" : board.updated_at.strftime("%Y-%m-%d %H:%M:%S"),
+                        "id"           : board.id,
+                        "writer"       : board.writer.nickname,
+                        "title"        : board.title,
+                    } for board in boards]
+            }, status = 200)
+
+        except ValueError:
+            return JsonResponse({ "MESSAGE" : "INPUT ERROR" }, status = 400)
 
 class BoardView(APIView):
     """
-    # 게시글 상세 조회
+    # 게시글 CRUD
     """
 
     def get(self, request, board_id):
@@ -131,6 +137,9 @@ class BoardView(APIView):
 
         except KeyError:
             return JsonResponse({ "MESSAGE" : "KEY ERROR" }, status = 400)
+        
+        except Board.DoesNotExist:
+            return JsonResponse({ "MESSAGE" : "BOARD DOES NOT EXIST"}, status = 400)
 
     """
     # 게시글 삭제

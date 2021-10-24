@@ -105,6 +105,15 @@ class BoardReadTest(TestCase):
         })
         self.assertEqual(response.status_code, 200)
 
+    def test_BoardListView_get_input_error(self):
+        client   = Client()
+        response = client.get('/boards?offset=a&limit=4')
+
+        self.assertEqual(response.json(), {
+            "MESSAGE" : "INPUT ERROR"
+        })
+        self.assertEqual(response.status_code, 400)
+
     def test_BoardView_get_success(self):
         client   = Client()
         response = client.get('/boards/1')
@@ -212,11 +221,24 @@ class BoardUpdateAndDeleteTest(TestCase):
         header     = { "HTTP_Authorization" : self.token1 }
         board_data = {
             "titel"   : "수정된 1번째 게시글",
-            "content" : ""
+            "content" : "수정된 내용을 입력해 주세요."
         }
         response = client.patch('/boards/1', json.dumps(board_data), content_type = "application/josn", **header)
         self.assertEqual(response.json(), {
             "MESSAGE" : "KEY ERROR"
+        })
+        self.assertEqual(response.status_code, 400)
+
+    def test_BoardView_patch_does_not_exist(self):
+        client     = Client()
+        header     = { "HTTP_Authorization" : self.token1 }
+        board_data = {
+            "title"   : "수정된 1번째 게시글",
+            "content" : "수정된 내용을 입력해 주세요."
+        }
+        response = client.patch('/boards/100', json.dumps(board_data), content_type = "application/josn", **header)
+        self.assertEqual(response.json(), {
+            "MESSAGE" : "BOARD DOES NOT EXIST"
         })
         self.assertEqual(response.status_code, 400)
 
