@@ -224,7 +224,7 @@
     - <img width="1238" alt="스크린샷 2021-10-24 오후 6 17 51" src="https://user-images.githubusercontent.com/42742076/138587925-709f4a1f-7504-4f0e-8af6-a3d02e04dcbf.png">
 
 - **/user/sign-in (유저 로그인)**
-    - <img width="1255" alt="스크린샷 2021-10-24 오후 5 52 31" src="https://user-images.githubusercontent.com/42742076/138587871-951e2dd8-fb50-4018-9e2e-9383589a8fab.png">
+    - <img width="1247" alt="스크린샷 2021-10-24 오후 6 33 10" src="https://user-images.githubusercontent.com/42742076/138588438-371a214c-f1b5-471e-9bbf-1119654963eb.png">
     - Method : POST
     - parameter : request_body
 
