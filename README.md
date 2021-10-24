@@ -150,6 +150,7 @@
         만약 해당 id의 게시글이 없다면 에러 반환
 
   - **Update**
+
         ```py
         board = Board.objects.get(id = board_id)
 
@@ -181,6 +182,7 @@
         수정할 게시글이 존재하지 않는다면 에러 반환
 
   - **Delete**
+
         ```py
         board = Board.objects.get(id = board_id)
 
@@ -209,7 +211,6 @@
 ## 🧩 User (사용자)
 
 - **/user/sign-up (유저 회원가입)**
-    file:///Users/songchiheon/Desktop/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-24%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.52.31.png
     - Method : POST
     - parameter : request_body
     param_name(json key값) | type | option
