@@ -151,58 +151,58 @@
 
   - **Update**
 
-        ```py
-        board = Board.objects.get(id = board_id)
+    ```py
+    board = Board.objects.get(id = board_id)
 
-        if board.writer.id != request.user.id:
-            return JsonResponse({ "MESSAGE" : "FORBIDDEN" }, status = 403)
-        ```
-        - 마찬가지로 path parameter로 게시글 id를 받아옵니다.
-        - 만약 해당 게시글의 작성자가 토큰의 user id와 다르면 수정할 권한이 없으므로 에러 반환
+    if board.writer.id != request.user.id:
+        return JsonResponse({ "MESSAGE" : "FORBIDDEN" }, status = 403)
+    ```
+    - 마찬가지로 path parameter로 게시글 id를 받아옵니다.
+    - 만약 해당 게시글의 작성자가 토큰의 user id와 다르면 수정할 권한이 없으므로 에러 반환
 
-        ```py
-        if title=="" or content=="":
-            return JsonResponse({ "MESSAGE" : "PLEASE INPUT CONTENTS" }, status = 400)
-        ```
-        내용이 둘 중 하나라도 없으면 에러 반환
+    ```py
+    if title=="" or content=="":
+        return JsonResponse({ "MESSAGE" : "PLEASE INPUT CONTENTS" }, status = 400)
+    ```
+    내용이 둘 중 하나라도 없으면 에러 반환
 
-        ```py
-        board.title   = title
-        board.content = content
-        board.save()
+    ```py
+    board.title   = title
+    board.content = content
+    board.save()
 
-        return JsonResponse({ "MESSAGE" : "UPDATED" }, status = 201)
-        ```
-        수정 내용을 적용하고 수정 완료
+    return JsonResponse({ "MESSAGE" : "UPDATED" }, status = 201)
+    ```
+    수정 내용을 적용하고 수정 완료
 
-        ```py
-        except Board.DoesNotExist:
-            return JsonResponse({ "MESSAGE" : "BOARD DOES NOT EXIST"}, status = 400)
-        ```
-        수정할 게시글이 존재하지 않는다면 에러 반환
+    ```py
+    except Board.DoesNotExist:
+        return JsonResponse({ "MESSAGE" : "BOARD DOES NOT EXIST"}, status = 400)
+    ```
+    수정할 게시글이 존재하지 않는다면 에러 반환
 
   - **Delete**
 
-        ```py
-        board = Board.objects.get(id = board_id)
+    ```py
+    board = Board.objects.get(id = board_id)
 
-        if board.writer.id != request.user.id:
-            return JsonResponse({ "MESSAGE" : "FORBIDDEN" }, status = 403)
-        ```
-        수정과 마찬가지로 권한 없으면 에러 반환
+    if board.writer.id != request.user.id:
+        return JsonResponse({ "MESSAGE" : "FORBIDDEN" }, status = 403)
+    ```
+    수정과 마찬가지로 권한 없으면 에러 반환
 
-        ```py
-        board.delete()
+    ```py
+    board.delete()
 
-        return HttpResponse(status = 204)
-        ```
-        게시글 삭제 완료
+    return HttpResponse(status = 204)
+    ```
+    게시글 삭제 완료
 
-        ```py
-        except Board.DoesNotExist:
-            return JsonResponse({ "MESSAGE" : "BOARD DOES NOT EXIST"}, status = 400)
-        ```
-        삭제할 게시글이 존재하지 않는다면 에러 반환
+    ```py
+    except Board.DoesNotExist:
+        return JsonResponse({ "MESSAGE" : "BOARD DOES NOT EXIST"}, status = 400)
+    ```
+    삭제할 게시글이 존재하지 않는다면 에러 반환
 
 ---
 
@@ -213,14 +213,16 @@
 - **/user/sign-up (유저 회원가입)**
     - Method : POST
     - parameter : request_body
+
     param_name(json key값) | type | option
-    -----|------
+    -----|------|---
     nickname | varchar(32) | null = False / unique = True
     password | varchar(32) | null = False
 
 - **/user/sign-in (유저 로그인)**
     - Method : POST
     - parameter : request_body
+
     param_name(json key값) | type | option
     -----|------|---------
     nickname | varchar(32) | null = False / unique = True
@@ -231,6 +233,7 @@
 - **/boards?offset=0&limit=4 (게시글 전체 조회)**
     - Method : GET
     - parameter : query_parameter
+
     param_name | type | option
     -----------|------|-------
     offset | unsigned int | 입력은 옵션
@@ -246,6 +249,7 @@
 - **/boards/write (게시글 작성)**
     - Method : POST
     - parameter : request_body
+
     param_name(json key값) | type | option
     -----------|------|-------
     title | varchar | blank = False
@@ -254,6 +258,7 @@
 - **/boards/1 (게시글 수정)**
     - Method : PATCH
     - parameter : path_parameter
+
     param | type
     ------|-----
     /<int> | int
@@ -261,6 +266,7 @@
 - **/boards/1 (게시글 삭제)**
     - Method : DELETE
     - parameter : path_parameter
+    
     param | type
     ------|-----
     /<int> | int
