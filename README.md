@@ -211,6 +211,7 @@
 ## 🧩 User (사용자)
 
 - **/user/sign-up (유저 회원가입)**
+    - <img width="1255" alt="스크린샷 2021-10-24 오후 5 52 31" src="https://user-images.githubusercontent.com/42742076/138587745-fb1e4842-52a1-4a16-86c9-6466c8cd5cb5.png">
     - Method : POST
     - parameter : request_body
 
